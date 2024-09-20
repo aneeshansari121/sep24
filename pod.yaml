@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod
+  labels:
+    app: mypod
+    env: dev
+    appgroup: mango
+spec:
+  containers:
+  - name: con1
+    image: tomcat:latest
+    ports:
+    - containerPort: 8080
