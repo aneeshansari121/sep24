@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: myrc
+spec:
+   selector:
+     matchLabels:
+      app: myapp
+   template:
+     metadata:
+       labels:
+         app: myapp
+     spec:
+       tolerations:
+       - key: node-role.kubernetes.io/control-plane
+         effect: NoSchedule
+       containers:
+       - name: con1
+         image: nginx:latest
+         ports:
+         - containerPort: 80

@@ -5,6 +5,10 @@ metadata:
   labels:
     app: wordpress
 spec:
+  volumes:
+  - name: myvol
+    secret:
+      secretName: mycert
   containers:
   - name: con1
     image: wordpress:latest
@@ -12,7 +16,10 @@ spec:
     - containerPort: 80
     env:
     - name: WORDPRESS_DB_HOST
-      value: wordpress
+      valueFrom:
+        configMapKeyRef: 
+          name: myconf
+          key: WORDPRESS_DB_HOST  
     - name: WORDPRESS_DB_USER
       value: root
     - name: WORDPRESS_DB_PASSWORD
@@ -21,13 +28,19 @@ spec:
       value: wordpress
     - name: WORDPRESS_TABLE_PREFIX
       value: wp_
+    volumeMounts:
+    - name: myvol
+      mountPath: /data
   - name: con2
     image: mysql:5.7
     ports:
     - containerPort: 3306
     env: 
     - name: MYSQL_ROOT_PASSWORD
-      value: test123
+      valueFrom:
+        secretKeyRef:
+          name: mypass
+          key: pass   
     - name: MYSQL_DATABASE
       value: wordpress
 ---
