@@ -1,0 +1,14 @@
+openssl x509 -req -in server.csr -CA /etc/kubernetes/pki/ca.crt -CAkey /etc/kubernetes/pki/ca.key -CAcreateserial -out dell.crt -days 365 
+
+
+kubectl config set-cluster kubernetes --server=https://192.168.29.110:6443 --certificate-authority=/etc/kubernetes/pki/ca.key
+
+kubectl config set-credentials dell --client-certificate=/home/dell/.certs/dell.crt --client-key=/home/dell/.certs/dell.key
+
+kubectl config set-context dell --cluster=kubernetes --namespace=jenkins --user=dell
+
+
+kubectl config use-context dell
+
+
+

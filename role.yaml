@@ -1,0 +1,27 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: jrole
+  namespace: jenkins
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  - secrets
+  verbs:
+  - create
+  - delete
+  - edit
+  - get
+  - list
+- apiGroups:
+  - apps
+  resources:
+  - deployments
+  verbs:
+  - create
+  - delete
+  - edit
+  - get
+  - list

@@ -2,9 +2,11 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: apple
+  namespace: jenkins
   labels:
     app: myapp
 spec:
+  serviceAccount: mango
   containers:
   - name: con1
     image: nginx:latest
